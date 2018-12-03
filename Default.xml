@@ -1,0 +1,9 @@
+<code_scheme name="Default" version="173">
+  <JavaCodeStyleSettings>
+    <option name="SPACE_BEFORE_OPENING_ANGLE_BRACKET_IN_TYPE_PARAMETER" value="true" />
+    <option name="ALIGN_MULTILINE_ANNOTATION_PARAMETERS" value="true" />
+  </JavaCodeStyleSettings>
+  <codeStyleSettings language="JAVA">
+    <option name="SPACE_BEFORE_METHOD_PARENTHESES" value="true" />
+  </codeStyleSettings>
+</code_scheme>
