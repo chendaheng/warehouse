@@ -681,66 +681,34 @@ public class PurchaseImportController {
     @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
             methods = {RequestMethod.POST},
             origins = "*")
-    @PostMapping(value = "/searchStockInRecordByParams")
-    @ApiOperation(value = "根据条件搜索相应的入库记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<WarehouseStockInRecord> searchStockInRecordByParams(@RequestBody Map<String, Object> params){
-        List <WarehouseStockInRecord> warehouseStockInRecordSearchResultList = new ArrayList<>();
-        if (params.size()>0){
-            if (params.containsKey("DateStart") && params.containsKey("DateEnd")){
-                String StartDate = params.get("DateStart").toString();
-                String EndDate = params.get("DateEnd").toString();
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                try {
-                    Date DateStart = format.parse(StartDate);
-                    Date DateEnd = format.parse(EndDate);
-                    if (DateStart.getTime() > DateEnd.getTime()){
-                        logger.debug("截止日期大于起始日期,请重新输入");
-                        return null;
-                    }
-                }
-                catch (Exception ParseException){
-                    ParseException.printStackTrace();
-                    return null;
-                }
-            }
-            if (params.containsKey("materialCode")){
-                List <String> entrySerialNoList = new ArrayList<String>();
-                List <WarehouseStockInRecordDetail> stockInRecordDetailResult = purchaseImportService.searchStockInRecordDetailByParams(params);
-                for (WarehouseStockInRecordDetail stockInRecordDetail : stockInRecordDetailResult){
-                    String entrySerialNo = stockInRecordDetail.getEntrySerialNo();
-                    entrySerialNoList.add(entrySerialNo);
-                }
-                HashSet hashSet = new HashSet(entrySerialNoList);
-                entrySerialNoList.clear();
-                entrySerialNoList.addAll(hashSet);
-                for (int i = 0; i < entrySerialNoList.size(); i++){
-                    String entrySerialNo = (String) entrySerialNoList.get(i);
-                    if (params.containsKey("entrySerialNo")){
-                        params.remove("entrySerialNo");
-                    }
-                    params.put("entrySerialNo", entrySerialNo);
-                    List <WarehouseStockInRecord> warehouseStockInRecordResult = purchaseImportService.searchStockInRecordByParams(params);
-                    if (warehouseStockInRecordResult.size() != 0){
-                        warehouseStockInRecordSearchResultList.add(warehouseStockInRecordResult.get(0));
-                    }
-                }
-                return warehouseStockInRecordSearchResultList;
+    @PostMapping(value = "/getAllQualityTestRecord")
+    @ApiOperation(value = "获取所有的检验记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<QualityTestRecord> getAllQualityTestRecord(){
+        return purchaseImportService.getAllQualityTestRecord();
+    }
+
+    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
+            methods = {RequestMethod.POST},
+            origins = "*")
+    @PostMapping(value = "/getQualityTestRecordByPage")
+    @ApiOperation(value = "根据页码获取检验记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<QualityTestRecord> getQualityTestRecordByPage(@RequestBody Map<String, Object> params){
+        if (params.containsKey("page") && params.containsKey("number")){
+            int page = (int)params.get("page");
+            int number = (int)params.get("number");
+            if (page < 1){
+                logger.debug("页数不能小于1");
+                return null;
             }
             else {
-                List <WarehouseStockInRecord> warehouseStockInRecordResult = purchaseImportService.searchStockInRecordByParams(params);
-                if (warehouseStockInRecordResult.size() != 0){
-                    warehouseStockInRecordSearchResultList.add(warehouseStockInRecordResult.get(0));
-                }
-                return warehouseStockInRecordSearchResultList;
+                return purchaseImportService.getQualityTestRecordByPage(page, number);
             }
-
         }
         else {
-            logger.debug("params不存在");
+            logger.debug("传入参数有误");
             return null;
         }
     }
-
 
     @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
             methods = {RequestMethod.POST},
@@ -903,31 +871,6 @@ public class PurchaseImportController {
         }
     }
 
-
-    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
-            methods = {RequestMethod.POST},
-            origins = "*")
-    @PostMapping(value = "/getAllQualityTestRecord")
-    @ApiOperation(value = "获取所有的检验记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<QualityTestRecord> getAllQualityTestRecord(){
-        return purchaseImportService.getAllQualityTestRecord();
-    }
-
-    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
-            methods = {RequestMethod.POST},
-            origins = "*")
-    @PostMapping(value = "/getQualityTestRecordByPage")
-    @ApiOperation(value = "根据页码获取检验记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<QualityTestRecord> getQualityTestRecordByPage(@RequestParam int page, @RequestParam int number){
-        if (page < 1){
-            logger.debug("页数不能小于1");
-            return null;
-        }
-        else {
-            return purchaseImportService.getQualityTestRecordByPage(page, number);
-        }
-    }
-
     @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
             methods = {RequestMethod.POST},
             origins = "*")
@@ -1071,6 +1014,68 @@ public class PurchaseImportController {
         }
     }
 
+    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
+            methods = {RequestMethod.POST},
+            origins = "*")
+    @PostMapping(value = "/searchStockInRecordByParams")
+    @ApiOperation(value = "根据条件搜索相应的入库记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<WarehouseStockInRecord> searchStockInRecordByParams(@RequestBody Map<String, Object> params){
+        List <WarehouseStockInRecord> warehouseStockInRecordSearchResultList = new ArrayList<>();
+        if (params.size()>0){
+            if (params.containsKey("DateStart") && params.containsKey("DateEnd")){
+                String StartDate = params.get("DateStart").toString();
+                String EndDate = params.get("DateEnd").toString();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                try {
+                    Date DateStart = format.parse(StartDate);
+                    Date DateEnd = format.parse(EndDate);
+                    if (DateStart.getTime() > DateEnd.getTime()){
+                        logger.debug("截止日期大于起始日期,请重新输入");
+                        return null;
+                    }
+                }
+                catch (Exception ParseException){
+                    ParseException.printStackTrace();
+                    return null;
+                }
+            }
+            if (params.containsKey("materialCode")){
+                List <String> entrySerialNoList = new ArrayList<String>();
+                List <WarehouseStockInRecordDetail> stockInRecordDetailResult = purchaseImportService.searchStockInRecordDetailByParams(params);
+                for (WarehouseStockInRecordDetail stockInRecordDetail : stockInRecordDetailResult){
+                    String entrySerialNo = stockInRecordDetail.getEntrySerialNo();
+                    entrySerialNoList.add(entrySerialNo);
+                }
+                HashSet hashSet = new HashSet(entrySerialNoList);
+                entrySerialNoList.clear();
+                entrySerialNoList.addAll(hashSet);
+                for (int i = 0; i < entrySerialNoList.size(); i++){
+                    String entrySerialNo = (String) entrySerialNoList.get(i);
+                    if (params.containsKey("entrySerialNo")){
+                        params.remove("entrySerialNo");
+                    }
+                    params.put("entrySerialNo", entrySerialNo);
+                    List <WarehouseStockInRecord> warehouseStockInRecordResult = purchaseImportService.searchStockInRecordByParams(params);
+                    if (warehouseStockInRecordResult.size() != 0){
+                        warehouseStockInRecordSearchResultList.add(warehouseStockInRecordResult.get(0));
+                    }
+                }
+                return warehouseStockInRecordSearchResultList;
+            }
+            else {
+                List <WarehouseStockInRecord> warehouseStockInRecordResult = purchaseImportService.searchStockInRecordByParams(params);
+                if (warehouseStockInRecordResult.size() != 0){
+                    warehouseStockInRecordSearchResultList.add(warehouseStockInRecordResult.get(0));
+                }
+                return warehouseStockInRecordSearchResultList;
+            }
+
+        }
+        else {
+            logger.debug("params不存在");
+            return null;
+        }
+    }
 
     @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
             methods = {RequestMethod.POST},

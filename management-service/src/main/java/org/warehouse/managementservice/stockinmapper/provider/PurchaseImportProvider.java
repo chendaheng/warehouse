@@ -23,6 +23,11 @@ public class PurchaseImportProvider {
                     String note = (String) params.get("note");
                     SET("note" + "='" + note + "'");
                 }
+                if (params.containsKey("arrivalDate")){
+                    // 更新收货时间
+                    String arrivalDate = (String) params.get("arrivalDate");
+                    SET("arrivalDate" + "='" + arrivalDate + "'");
+                }
                 WHERE("planSerialNo=" + "'"  + planSerialNo + "'");
             }
         }.toString();

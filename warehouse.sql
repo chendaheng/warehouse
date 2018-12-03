@@ -94,7 +94,7 @@ create table if not exists `qualityTestRecordDetail` (
     `receivingSerialNo` varchar(20) not null,
     `materialCode` varchar(20) not null,
     `unitId` int ,
-    `qualityTestQuantity` int default,
+    `qualityTestQuantity` int ,
     `qualityTestMethod`  varchar(10) ,
     `qualityTestStandard` varchar(10) ,
     `entryQuantity` int ,
