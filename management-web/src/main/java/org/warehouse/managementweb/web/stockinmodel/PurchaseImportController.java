@@ -1,4 +1,4 @@
-package org.warehouse.managementweb.web.stockinimportmodel;
+package org.warehouse.managementweb.web.stockinmodel;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-import org.warehouse.managementfacade.model.stockinimportmodel.*;
+import org.warehouse.managementfacade.model.stockinmodel.*;
 import org.warehouse.managementservice.stockincrossModule.CrossModuleClient;
-import org.warehouse.managementservice.service.stockinimportimpl.*;
+import org.warehouse.managementservice.service.stockinimpl.*;
 
 import java.util.*;
 import java.text.SimpleDateFormat;

@@ -1,7 +1,7 @@
 package org.warehouse.managementfacade.stockinservice;
 
 import org.springframework.stereotype.Service;
-import org.warehouse.managementfacade.model.stockinimportmodel.*;
+import org.warehouse.managementfacade.model.stockinmodel.*;
 
 import java.util.List;
 import java.util.Map;

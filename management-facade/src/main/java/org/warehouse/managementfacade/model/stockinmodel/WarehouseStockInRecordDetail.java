@@ -1,17 +1,18 @@
-package org.warehouse.managementfacade.model.stockinimportmodel;
+package org.warehouse.managementfacade.model.stockinmodel;
 
 import io.swagger.annotations.ApiModel;
 
-@ApiModel("上架明细表")
-public class ShelfRecordDetail {
+@ApiModel("入库记录明细表")
+public class WarehouseStockInRecordDetail {
 
     private int id;
-    private String shelfSerialNo;
+    private String entrySerialNo;
     private String materialCode;
     private String batchCode;
     private int unitId;
-    private int locationId;
-    private int shelfQuantity;
+    private int entryQuantity;
+    private int price;
+    private int taxPrice;
     private String note;
 
     public int getId() {
@@ -22,12 +23,12 @@ public class ShelfRecordDetail {
         this.id = id;
     }
 
-    public String getShelfSerialNo() {
-        return shelfSerialNo;
+    public String getEntrySerialNo() {
+        return entrySerialNo;
     }
 
-    public void setShelfSerialNo(String shelfSerialNo) {
-        this.shelfSerialNo = shelfSerialNo;
+    public void setEntrySerialNo(String entrySerialNo) {
+        this.entrySerialNo = entrySerialNo;
     }
 
     public String getMaterialCode() {
@@ -54,20 +55,28 @@ public class ShelfRecordDetail {
         this.unitId = unitId;
     }
 
-    public int getLocationId() {
-        return locationId;
+    public int getEntryQuantity() {
+        return entryQuantity;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setEntryQuantity(int entryQuantity) {
+        this.entryQuantity = entryQuantity;
     }
 
-    public int getShelfQuantity() {
-        return shelfQuantity;
+    public int getPrice() {
+        return price;
     }
 
-    public void setShelfQuantity(int shelfQuantity) {
-        this.shelfQuantity = shelfQuantity;
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getTaxPrice() {
+        return taxPrice;
+    }
+
+    public void setTaxPrice(int taxPrice) {
+        this.taxPrice = taxPrice;
     }
 
     public String getNote() {

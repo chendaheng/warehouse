@@ -2,7 +2,7 @@ package org.warehouse.managementservice.stockinmapper;
 
 import org.apache.ibatis.annotations.*;
 import org.warehouse.managementservice.stockinmapper.provider.PurchaseImportProvider;
-import org.warehouse.managementfacade.model.stockinimportmodel.*;
+import org.warehouse.managementfacade.model.stockinmodel.*;
 
 import java.util.List;
 import java.util.Map;

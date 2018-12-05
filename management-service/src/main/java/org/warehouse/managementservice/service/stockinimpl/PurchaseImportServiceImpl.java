@@ -1,8 +1,8 @@
-package org.warehouse.managementservice.service.stockinimportimpl;
+package org.warehouse.managementservice.service.stockinimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.warehouse.managementfacade.model.stockinimportmodel.*;
+import org.warehouse.managementfacade.model.stockinmodel.*;
 
 import org.warehouse.managementfacade.stockinservice.PurchaseImportService;
 import org.warehouse.managementservice.stockinmapper.PurchaseImportMapper;

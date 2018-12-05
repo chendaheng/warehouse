@@ -1,18 +1,17 @@
-package org.warehouse.managementfacade.model.stockinimportmodel;
+package org.warehouse.managementfacade.model.stockinmodel;
 
 import io.swagger.annotations.ApiModel;
 
-@ApiModel("入库记录明细表")
-public class WarehouseStockInRecordDetail {
+@ApiModel("上架明细表")
+public class ShelfRecordDetail {
 
     private int id;
-    private String entrySerialNo;
+    private String shelfSerialNo;
     private String materialCode;
     private String batchCode;
     private int unitId;
-    private int entryQuantity;
-    private int price;
-    private int taxPrice;
+    private int locationId;
+    private int shelfQuantity;
     private String note;
 
     public int getId() {
@@ -23,12 +22,12 @@ public class WarehouseStockInRecordDetail {
         this.id = id;
     }
 
-    public String getEntrySerialNo() {
-        return entrySerialNo;
+    public String getShelfSerialNo() {
+        return shelfSerialNo;
     }
 
-    public void setEntrySerialNo(String entrySerialNo) {
-        this.entrySerialNo = entrySerialNo;
+    public void setShelfSerialNo(String shelfSerialNo) {
+        this.shelfSerialNo = shelfSerialNo;
     }
 
     public String getMaterialCode() {
@@ -55,28 +54,20 @@ public class WarehouseStockInRecordDetail {
         this.unitId = unitId;
     }
 
-    public int getEntryQuantity() {
-        return entryQuantity;
+    public int getLocationId() {
+        return locationId;
     }
 
-    public void setEntryQuantity(int entryQuantity) {
-        this.entryQuantity = entryQuantity;
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
     }
 
-    public int getPrice() {
-        return price;
+    public int getShelfQuantity() {
+        return shelfQuantity;
     }
 
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getTaxPrice() {
-        return taxPrice;
-    }
-
-    public void setTaxPrice(int taxPrice) {
-        this.taxPrice = taxPrice;
+    public void setShelfQuantity(int shelfQuantity) {
+        this.shelfQuantity = shelfQuantity;
     }
 
     public String getNote() {

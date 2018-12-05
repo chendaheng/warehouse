@@ -1,26 +1,28 @@
-package org.warehouse.managementfacade.model.stockinimportmodel;
+package org.warehouse.managementfacade.model.stockinmodel;
+
 
 import io.swagger.annotations.ApiModel;
 
 import java.sql.Timestamp;
 
-@ApiModel("收货记录表")
-public class ReceivingRecord {
+@ApiModel("入库计划表")
+public class WarehouseStockInPlan {
 
     private int id;
-    private String receivingSerialNo;
     private String planSerialNo;
+    private int entryType;
     private String vouchSerialNo;
     private int vouchType;
-    private int entryType;
+    private int deptId;
+    private int onwerId;
+    private Timestamp startDate;
+    private Timestamp arrivalDate;
     private int deliveryId;
     private int deliveryAddrId;
-    private Timestamp receivingDate;
     private int warehouseId;
     private int receivingAddrId;
     private int operUserId;
-    private int attachmentId;
-    private int receivingStatus;
+    private int status;
     private String note;
 
     public int getId() {
@@ -31,20 +33,20 @@ public class ReceivingRecord {
         this.id = id;
     }
 
-    public String getReceivingSerialNo() {
-        return receivingSerialNo;
-    }
-
-    public void setReceivingSerialNo(String receivingSerialNo) {
-        this.receivingSerialNo = receivingSerialNo;
-    }
-
     public String getPlanSerialNo() {
         return planSerialNo;
     }
 
     public void setPlanSerialNo(String planSerialNo) {
         this.planSerialNo = planSerialNo;
+    }
+
+    public int getEntryType() {
+        return entryType;
+    }
+
+    public void setEntryType(int entryType) {
+        this.entryType = entryType;
     }
 
     public String getVouchSerialNo() {
@@ -63,12 +65,36 @@ public class ReceivingRecord {
         this.vouchType = vouchType;
     }
 
-    public int getEntryType() {
-        return entryType;
+    public int getDeptId() {
+        return deptId;
     }
 
-    public void setEntryType(int entryType) {
-        this.entryType = entryType;
+    public void setDeptId(int deptId) {
+        this.deptId = deptId;
+    }
+
+    public int getOnwerId() {
+        return onwerId;
+    }
+
+    public void setOnwerId(int onwerId) {
+        this.onwerId = onwerId;
+    }
+
+    public Timestamp getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
+    }
+
+    public Timestamp getArrivalDate() {
+        return arrivalDate;
+    }
+
+    public void setArrivalDate(Timestamp arrivalDate) {
+        this.arrivalDate = arrivalDate;
     }
 
     public int getDeliveryId() {
@@ -85,14 +111,6 @@ public class ReceivingRecord {
 
     public void setDeliveryAddrId(int deliveryAddrId) {
         this.deliveryAddrId = deliveryAddrId;
-    }
-
-    public Timestamp getReceivingDate() {
-        return receivingDate;
-    }
-
-    public void setReceivingDate(Timestamp receivingDate) {
-        this.receivingDate = receivingDate;
     }
 
     public int getWarehouseId() {
@@ -119,27 +137,19 @@ public class ReceivingRecord {
         this.operUserId = operUserId;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
-    }
-
-    public int getAttachmentId() {
-        return attachmentId;
-    }
-
-    public void setAttachmentId(int attachmentId) {
-        this.attachmentId = attachmentId;
-    }
-
-    public int getReceivingStatus() {
-        return receivingStatus;
-    }
-
-    public void setReceivingStatus(int receivingStatus) {
-        this.receivingStatus = receivingStatus;
     }
 }

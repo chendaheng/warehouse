@@ -1,4 +1,4 @@
-package org.warehouse.managementfacade.model.stockinimportmodel;
+package org.warehouse.managementfacade.model.stockinmodel;
 
 import java.sql.Timestamp;
 import io.swagger.annotations.ApiModel;
