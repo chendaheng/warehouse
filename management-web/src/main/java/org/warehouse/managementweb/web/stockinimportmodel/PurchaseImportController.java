@@ -925,8 +925,44 @@ public class PurchaseImportController {
             origins = "*")
     @PostMapping(value = "/getQualityTestRecordDetailByQualityTestSerialNo")
     @ApiOperation(value = "根据检验单号获取对应的检验记录明细", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<QualityTestRecordDetail> getQualityTestRecordDetailByQualityTestSerialNo(@RequestParam String qualityTestSerialNo){
-        return purchaseImportService.getQualityTestRecordDetailByQualityTestSerialNo(qualityTestSerialNo);
+    public List<QualityTestRecordDetail> getQualityTestRecordDetailByQualityTestSerialNo(@RequestBody Map<String, Object> params){
+        if (params.containsKey("qualityTestSerialNo")){
+            String qualityTestSerialNo = (String) params.get("qualityTestSerialNo");
+            return purchaseImportService.getQualityTestRecordDetailByQualityTestSerialNo(qualityTestSerialNo);
+        }
+        else {
+            logger.debug("传入数据缺少检验单号");
+            return null;
+        }
+
+    }
+
+    @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
+            methods = {RequestMethod.POST},
+            origins = "*")
+    @PostMapping(value = "/isAllMaterialGetTest")
+    @ApiOperation(value = "判断一条检验记录的物料是否全部检验", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public int isAllMaterialGetTest(@RequestBody Map<String, Object> params){
+        String qualityTestSerialNo = (String) params.get("qualityTestSerialNo");
+        int count = 0;
+        int testCount = 0;
+        List <QualityTestRecordDetail> qualityTestRecordDetailResult = purchaseImportService.
+                getQualityTestRecordDetailByQualityTestSerialNo(qualityTestSerialNo);
+        for (QualityTestRecordDetail testRecordDetail : qualityTestRecordDetailResult){
+            count = count + 1;
+            if (testRecordDetail.getEntryQuantity() != 0 || testRecordDetail.getReturnQuantity() != 0){
+                testCount = testCount + 1;
+            }
+            else {
+                logger.debug("物料:"+ testRecordDetail.getMaterialCode() + "  未检验");
+            }
+        }
+        if (testCount == count){
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 
     @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",

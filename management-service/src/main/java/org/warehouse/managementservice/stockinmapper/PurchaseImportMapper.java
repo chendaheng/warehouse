@@ -135,7 +135,7 @@ public interface PurchaseImportMapper {
     List<QualityTestRecord> getQualityTestRecordResultByOffset(@Param("offset") int offset, @Param("number") int number);
 
     // 根据检验单号查询对应的检验记录明细
-    @Select("SELECT * FROM qualityTestRecord WHERE qualityTestSerialNo=#{qualityTestSerialNo};")
+    @Select("SELECT * FROM qualityTestRecordDetail WHERE qualityTestSerialNo=#{qualityTestSerialNo};")
     List<QualityTestRecordDetail> getQualityTestRecordDetailResultByQualityTestSerialNo(String qualityTestSerialNo);
 
     // 更新检验记录
