@@ -1,5 +1,6 @@
 package org.warehouse.managementweb.web.stockinmodel;
 
+import com.sun.xml.internal.ws.server.ServerRtException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
@@ -819,16 +820,16 @@ public class PurchaseImportController {
                 }
                 else {
                     List<QualityTestRecord> qualityTestRecordResult = purchaseImportService.searchQualityTestRecordByParams(params);
-                    if (qualityTestRecordResult.size() != 0){
-                        qualityTestRecordSearchResultList.add(qualityTestRecordResult.get(0));
+                    for (int i = 0; i < qualityTestRecordResult.size(); i++){
+                        qualityTestRecordSearchResultList.add(qualityTestRecordResult.get(i));
                     }
                     return qualityTestRecordSearchResultList;
                 }
             }
             else {
                 List<QualityTestRecord> qualityTestRecordResult = purchaseImportService.searchQualityTestRecordByParams(params);
-                if (qualityTestRecordResult.size() != 0){
-                    qualityTestRecordSearchResultList.add(qualityTestRecordResult.get(0));
+                for (int i = 0; i < qualityTestRecordResult.size(); i++){
+                    qualityTestRecordSearchResultList.add(qualityTestRecordResult.get(i));
                 }
                 return qualityTestRecordSearchResultList;
             }
@@ -1029,10 +1030,11 @@ public class PurchaseImportController {
     @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
             methods = {RequestMethod.POST},
             origins = "*")
-    @PostMapping(value = "/getAllWarehouseStockInRecord")
-    @ApiOperation(value = "获取所有入库记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<WarehouseStockInRecord> getAllWarehouseStockInRecord(){
-        return purchaseImportService.getAllWarehouseStockInRecord();
+    @PostMapping(value = "/getAllWarehouseStockInRecordByEntryType")
+    @ApiOperation(value = "获取当前入库类型下所有入库记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public List<WarehouseStockInRecord> getAllWarehouseStockInRecord(@RequestBody Map<String, Object> params){
+        int entryType = (int)params.get("entryType");
+        return purchaseImportService.getAllWarehouseStockInRecord(entryType);
     }
 
     @CrossOrigin(allowCredentials = "true", allowedHeaders = "*",
@@ -1118,8 +1120,46 @@ public class PurchaseImportController {
             origins = "*")
     @PostMapping(value = "/getWarehouseStockInRecordDetailByEntrySerialNo")
     @ApiOperation(value = "根据入库单号获取入库记录明细", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<WarehouseStockInPlanDetail> getWarehouseStockInRecordDetailByEntrySerialNo(@RequestParam String entrySerialNo){
-        return purchaseImportService.getStockInPlanDetailByPlanSerialNo(entrySerialNo);
+    public List<Object> getWarehouseStockInRecordDetailByEntrySerialNo(@RequestBody Map<String, Object> params){
+        List <Object> showDataList = new ArrayList<>();
+        if (params.containsKey("entrySerialNo")){
+            String entrySerialNo = (String)params.get("entrySerialNo");
+            List <WarehouseStockInRecordDetail> stockInRecordDetailResult = purchaseImportService.getStockInRecordDetailByEntrySerialNo(entrySerialNo);
+            for (WarehouseStockInRecordDetail stockInRecordDetail : stockInRecordDetailResult){
+                HashMap < String, Object> recordDetailShowData = new HashMap<String, Object>();
+                String materialCode = stockInRecordDetail.getMaterialCode();
+                String batchCode = stockInRecordDetail.getBatchCode();
+                int unitId = stockInRecordDetail.getUnitId();
+                int entryQuantity = stockInRecordDetail.getEntryQuantity();
+                int price = stockInRecordDetail.getPrice();
+                int taxPrice = stockInRecordDetail.getTaxPrice();
+                String note = stockInRecordDetail.getNote();
+                recordDetailShowData.put("materialCode", materialCode);
+                recordDetailShowData.put("batchCode", batchCode);
+                recordDetailShowData.put("unitId", unitId);
+                recordDetailShowData.put("entryQuantity", entryQuantity);
+                recordDetailShowData.put("price", price);
+                recordDetailShowData.put("taxPrice", taxPrice);
+                recordDetailShowData.put("note", note);
+                // 跨模块获取规格
+                CrossModuleClient crossModuleClient = new CrossModuleClient();
+                String url_getBaseInfo = "http://localhost:8180/materialmanagement/getBaseInfo";
+                String spuCode = crossModuleClient.getSpuCodeByMaterialCode(url_getBaseInfo, materialCode); // 根据物料编码获取spu编码
+                int materialCatId = crossModuleClient.getMaterialCatIdBySpucode(url_getBaseInfo ,spuCode);
+                String url_getSpecification = "http://localhost:8180/materialmanagement/getMaterialBaseByCatIdAndType";
+                String specification = crossModuleClient.getSpecificationByMaterialCatId(url_getSpecification,materialCatId);// 获取规格
+                recordDetailShowData.put("specification", specification);
+                showDataList.add(recordDetailShowData);
+
+                // 跨模块获取名称 缺少名称
+            }
+            return showDataList;
+        }
+        else {
+            logger.debug("params不包含entrySerialNo");
+            return null;
+        }
+
     }
 
 
@@ -1221,13 +1261,17 @@ public class PurchaseImportController {
 //        String spuCode = crossModuleClient.getSpuCodeByMaterialCode(url,materialCode);
 //        System.out.println(spuCode);
 
-        String url = "http://localhost:8180/materialmanagement/getMaterialBaseByCatIdAndType";
-        int materialCatId = 7;
-        String str = crossModuleClient.getSpecificationByMaterialCatId(url,materialCatId);
-        System.out.println(str);
-
+//        String url = "http://localhost:8180/materialmanagement/getMaterialBaseByCatIdAndType";
+//        int materialCatId = 7;
+//        String str = crossModuleClient.getSpecificationByMaterialCatId(url,materialCatId);
+//        System.out.println(str);
+//
+//
+        String materialCode = "11101";
+        String url_getBaseInfo = "http://localhost:8180/materialmanagement/getBaseInfo";
+        String materialName = crossModuleClient.getMaterialNameByMaterialCode(url_getBaseInfo, materialCode);
+        System.out.println(materialName);
         return null;
-
     }
 
 

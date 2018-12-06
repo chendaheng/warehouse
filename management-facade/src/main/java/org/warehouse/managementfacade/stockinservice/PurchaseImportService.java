@@ -102,7 +102,7 @@ public interface PurchaseImportService {
     int addWarehouseStockInRecord(Map<String, Object> params);
 
     // 获取所有入库记录
-    List <WarehouseStockInRecord> getAllWarehouseStockInRecord();
+    List <WarehouseStockInRecord> getAllWarehouseStockInRecord(int entryType);
 
     // 根据页码获取入库记录
     List <WarehouseStockInRecord> getWarehouseStockInRecordByPage(int page, int number);

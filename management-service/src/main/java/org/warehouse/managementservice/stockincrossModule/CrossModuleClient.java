@@ -15,22 +15,22 @@ public class CrossModuleClient {
         String str = HttpRequestTest.sendPostWithJson(url, params);
         JSONArray result = JSONArray.fromObject(str);
         JSONArray resultJsonArray = result.getJSONArray(0);
-        String SpuCode = resultJsonArray.getJSONObject(0).get("spuCode").toString();
-        return SpuCode;
+        String spuCode = resultJsonArray.getJSONObject(0).get("spuCode").toString();
+        return spuCode;
     }
 
     public List <Object> getMaterialCodeBySpuCode(String url, String spuCode){ // 一个SpuCode可能对应多种MaterialCode 返回一个List
         // 根据spuCode获取materialCode
-        List <Object> MaterialCode = new ArrayList<>();
+        List <Object> materialCode = new ArrayList<>();
         String params = "{\n" + "\t\"spuCode\":" + "\"" + spuCode + "\""+ ",\n" + "\t\"typeArr\":[2]\n" + "}";
         String str = HttpRequestTest.sendPostWithJson(url, params);
         JSONArray result = JSONArray.fromObject(str);
         JSONArray resultJsonArray = result.getJSONArray(0);
         for(int i = 0; i < resultJsonArray.size(); i++){
             JSONObject jsonObject = resultJsonArray.getJSONObject(i);
-            MaterialCode.add(jsonObject.get("materialCode"));
+            materialCode.add(jsonObject.get("materialCode"));
         }
-        return MaterialCode;
+        return materialCode;
     }
 
     public String getSpuCodeByMaterialCode(String url, String materialCode){ // 一个materialCode 只有对应的一种spuCode
@@ -39,8 +39,19 @@ public class CrossModuleClient {
         String str = HttpRequestTest.sendPostWithJson(url, params);
         JSONArray result = JSONArray.fromObject(str);
         JSONArray resultJsonArray = result.getJSONArray(0);
-        String SpuCode = resultJsonArray.getJSONObject(0).get("spuCode").toString();
-        return SpuCode;
+        String spuCode = resultJsonArray.getJSONObject(0).get("spuCode").toString();
+        return spuCode;
+    }
+
+    public String getMaterialNameByMaterialCode(String url, String materialCode){ /////////还有问题
+        // 根据materialCode获取materialName
+        String params = "{\n" + "\"materialCode\":" + "\"" + materialCode + "\"" + "\n" + "}";
+        String str = HttpRequestTest.sendPostWithJson(url, params);
+        JSONArray result = JSONArray.fromObject(str);
+        JSONArray resultJsonArray = result.getJSONArray(0);
+        System.out.println(resultJsonArray);
+        String materialName = resultJsonArray.getJSONObject(0).get("materialName").toString();
+        return materialName;
     }
 
     public int getMaterialCatIdBySpucode(String url, String spuCode){

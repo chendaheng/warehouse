@@ -243,9 +243,9 @@ public class PurchaseImportServiceImpl implements PurchaseImportService {
     }
 
     @Override
-    public List<WarehouseStockInRecord> getAllWarehouseStockInRecord() {
+    public List<WarehouseStockInRecord> getAllWarehouseStockInRecord(int entryType) {
         // 获取所有入库记录
-        return purchaseImportMapper.getAllWarehouseStockInRecordResult();
+        return purchaseImportMapper.getAllWarehouseStockInRecordResultByEntryType(entryType);
     }
 
     @Override

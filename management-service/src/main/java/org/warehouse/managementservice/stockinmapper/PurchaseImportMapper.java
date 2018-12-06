@@ -168,9 +168,9 @@ public interface PurchaseImportMapper {
             method = "searchStockInRecordDetailResultByParams")
     List<WarehouseStockInRecordDetail> searchStockInRecordDetailResultByParams (Map<String, Object> params);
 
-    // 获取所有入库记录
-    @Select("SELECT * FROM warehouseStockInRecord;")
-    List<WarehouseStockInRecord> getAllWarehouseStockInRecordResult();
+    // 获取当前入库类型下所有入库记录
+    @Select("SELECT * FROM warehouseStockInRecord WHERE entryType=#{entryType};;")
+    List<WarehouseStockInRecord> getAllWarehouseStockInRecordResultByEntryType(int entryType);
 
     // 根据页码获取入库记录
     @Select("SELECT * FROM warehouseStockInRecord limit #{offset},#{number};")
