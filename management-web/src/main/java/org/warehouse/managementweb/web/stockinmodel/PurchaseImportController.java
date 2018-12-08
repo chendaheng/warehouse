@@ -1042,13 +1042,20 @@ public class PurchaseImportController {
             origins = "*")
     @PostMapping(value = "/getWarehouseStockInRecordByPage")
     @ApiOperation(value = "根据页码入库记录", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public List<WarehouseStockInRecord> getWarehouseStockInRecordByPage(@RequestParam int page, @RequestParam int number){
-        if (page < 1){
-            logger.debug("页数不能小于1");
-            return null;
+    public List<WarehouseStockInRecord> getWarehouseStockInRecordByPage(@RequestBody Map<String, Object> params){
+        if (params.containsKey("page") && params.containsKey("number") && params.containsKey("entryType")){
+            int page = (int)params.get("page");
+            int number = (int)params.get("number");
+            int entryType = (int)params.get("entryType");
+            if (page < 1){
+                logger.debug("页数不能小于1");
+                return null;
+            }
+            return purchaseImportService.getWarehouseStockInRecordByPage(page, number, entryType);
         }
         else {
-            return purchaseImportService.getWarehouseStockInRecordByPage(page, number);
+            logger.debug("参数传入有误");
+            return null;
         }
     }
 
@@ -1134,6 +1141,7 @@ public class PurchaseImportController {
                 int price = stockInRecordDetail.getPrice();
                 int taxPrice = stockInRecordDetail.getTaxPrice();
                 String note = stockInRecordDetail.getNote();
+                recordDetailShowData.put("entrySerialNo",entrySerialNo);
                 recordDetailShowData.put("materialCode", materialCode);
                 recordDetailShowData.put("batchCode", batchCode);
                 recordDetailShowData.put("unitId", unitId);

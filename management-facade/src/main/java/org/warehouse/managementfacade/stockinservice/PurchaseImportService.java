@@ -105,7 +105,7 @@ public interface PurchaseImportService {
     List <WarehouseStockInRecord> getAllWarehouseStockInRecord(int entryType);
 
     // 根据页码获取入库记录
-    List <WarehouseStockInRecord> getWarehouseStockInRecordByPage(int page, int number);
+    List <WarehouseStockInRecord> getWarehouseStockInRecordByPage(int page, int number, int entryType);
 
     // 根据条件搜索相应的入库记录
     List <WarehouseStockInRecord> searchStockInRecordByParams(Map<String, Object> params);

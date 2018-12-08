@@ -249,11 +249,11 @@ public class PurchaseImportServiceImpl implements PurchaseImportService {
     }
 
     @Override
-    public List<WarehouseStockInRecord> getWarehouseStockInRecordByPage(int page, int number) {
+    public List<WarehouseStockInRecord> getWarehouseStockInRecordByPage(int page, int number, int entryType) {
         // 根据页码获取入库记录
         page = page - 1;
         int offset = page * number;
-        return purchaseImportMapper.getWarehouseStockInRecordResultByOffset(offset, number);
+        return purchaseImportMapper.getWarehouseStockInRecordResultByOffset(offset, number, entryType);
     }
 
     @Override
@@ -284,7 +284,7 @@ public class PurchaseImportServiceImpl implements PurchaseImportService {
     @Override
     public List<WarehouseStockInRecordDetail> getStockInRecordDetailByEntrySerialNo(String entrySerialNo) {
         // 根据入库单号获取入库记录明细
-        return purchaseImportMapper.getStockInRecordDetailByEntrySerial(entrySerialNo);
+        return purchaseImportMapper.getStockInRecordDetailByEntrySerialNo(entrySerialNo);
     }
 
     @Override

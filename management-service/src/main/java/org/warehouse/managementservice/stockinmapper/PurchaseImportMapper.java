@@ -169,12 +169,12 @@ public interface PurchaseImportMapper {
     List<WarehouseStockInRecordDetail> searchStockInRecordDetailResultByParams (Map<String, Object> params);
 
     // 获取当前入库类型下所有入库记录
-    @Select("SELECT * FROM warehouseStockInRecord WHERE entryType=#{entryType};;")
+    @Select("SELECT * FROM warehouseStockInRecord WHERE entryType=#{entryType};")
     List<WarehouseStockInRecord> getAllWarehouseStockInRecordResultByEntryType(int entryType);
 
     // 根据页码获取入库记录
-    @Select("SELECT * FROM warehouseStockInRecord limit #{offset},#{number};")
-    List<WarehouseStockInRecord> getWarehouseStockInRecordResultByOffset(@Param("offset") int offset, @Param("number") int number);
+    @Select("SELECT * FROM warehouseStockInRecord WHERE entryType=#{entryType} limit #{offset},#{number};")
+    List<WarehouseStockInRecord> getWarehouseStockInRecordResultByOffset(@Param("offset") int offset, @Param("number") int number , @Param("entryType") int entryType);
 
     // 新增入库记录明细
     @InsertProvider(type = PurchaseImportProvider.class,
@@ -182,8 +182,8 @@ public interface PurchaseImportMapper {
     int addWarehouseStockInRecordDetailByParams(Map<String, Object> params);
 
     // 根据入库单号获取入库记录明细
-    @Select("SELECT * FROM warehouseStockInRecord WHERE entrySerialNo=#{entrySerialNo};")
-    List <WarehouseStockInRecordDetail> getStockInRecordDetailByEntrySerial(String entrySerialNo);
+    @Select("SELECT * FROM warehouseStockInRecordDetail WHERE entrySerialNo=#{entrySerialNo};")
+    List <WarehouseStockInRecordDetail> getStockInRecordDetailByEntrySerialNo(String entrySerialNo);
 
     // 根据入库单号和物料编码获取入库记录明细
     @Select("SELECT * FROM shelfRecord WHERE entrySerialNo=#{entrySerialNo} and materialCode=#{materialCode};")

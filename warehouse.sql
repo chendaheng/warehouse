@@ -502,3 +502,15 @@ INSERT INTO `warehouseStockInPlanDetail` VALUES (6,'plan003','31102',3,100,0,600
 INSERT INTO `warehouseStockInPlanDetail` VALUES (7,'plan004','31101',4,200,0,8100,8500,0,NULL);
 INSERT INTO `warehouseStockInPlanDetail` VALUES (8,'plan004','31102',4,100,0,6100,6400,0,NULL);
 INSERT INTO `warehouseStockInPlanDetail` VALUES (9,'plan005','31102',4,100,0,6100,6400,0,NULL);
+
+
+-- -- ----------------------------
+-- -- Records of warehouseStockInRecord
+-- -- ----------------------------
+INSERT INTO `warehouseStockInRecord` VALUES (1,'entry001',1,'purchase001',1,3331,333111,333001,66601,NULL,1,NULL);
+
+-- -- ----------------------------
+-- -- Records of warehouseStockInRecordDetail
+-- -- ----------------------------
+INSERT INTO `warehouseStockInRecordDetail` VALUES(1,'entry001','11101','2018001',1,20,500000,520000,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(2,'entry001','11102','2018001',1,30,200000,210000,NULL);
