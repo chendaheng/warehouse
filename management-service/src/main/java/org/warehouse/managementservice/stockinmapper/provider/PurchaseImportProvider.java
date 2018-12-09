@@ -75,7 +75,7 @@ public class PurchaseImportProvider {
 
     public String searchStockInRecordResultByParams(Map<String, Object> params){
         // 根据条件搜索相应的入库记录
-        String[] keyList = {"entrySerialNo", "DateStart", "DateEnd", "warehouseId"};
+        String[] keyList = {"entrySerialNo", "DateStart", "DateEnd", "warehouseId", "operUserId", "deliveryId"};
         return new SQL(){
             {
                 SELECT("*");
@@ -86,13 +86,19 @@ public class PurchaseImportProvider {
                         if (key == "entrySerialNo"){
                             WHERE(key + "='" + value + "'");
                         }
-                        if (key == "deliveryId"){
-                            WHERE("entryDate" + "=" + value);
-                        }
                         if (key ==  "DateStart"){
                             WHERE("entryDate>='" + value + "'");
                         }
+                        if (key == "DateEnd"){
+                            WHERE("entryDate<='" + value + "'");
+                        }
                         if (key == "warehouseId"){
+                            WHERE(key + "=" + value);
+                        }
+                        if (key == "operUserId"){
+                            WHERE(key + "=" + value);
+                        }
+                        if (key == "deliveryId"){
                             WHERE(key + "=" + value);
                         }
                     }

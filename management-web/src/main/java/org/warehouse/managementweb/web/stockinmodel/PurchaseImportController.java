@@ -444,8 +444,15 @@ public class PurchaseImportController {
             String planSerialNo = (String) params.get("planSerialNo");
             List <WarehouseStockInPlan> StockInPlanResult = purchaseImportService.getStockInPlanByPlanSerialNo(planSerialNo);
             if (StockInPlanResult.size() == 0){
-                logger.debug("该入库计划流水号对应的入库计划不存在");
-                return -1;
+                if (params.containsKey("noPlanFlag")){
+                    logger.debug("非计划收货增加一条收货记录");
+                    return purchaseImportService.addReceivingRecord(params);
+                }
+                else {
+                    logger.debug("该入库计划流水号对应的入库计划不存在");
+                    return -1;
+                }
+
             }
             else if (StockInPlanResult.size() == 1){
                 try {
@@ -1109,12 +1116,11 @@ public class PurchaseImportController {
             }
             else {
                 List <WarehouseStockInRecord> warehouseStockInRecordResult = purchaseImportService.searchStockInRecordByParams(params);
-                if (warehouseStockInRecordResult.size() != 0){
-                    warehouseStockInRecordSearchResultList.add(warehouseStockInRecordResult.get(0));
+                for (int i = 0; i < warehouseStockInRecordResult.size(); i++){
+                    warehouseStockInRecordSearchResultList.add(warehouseStockInRecordResult.get(i));
                 }
                 return warehouseStockInRecordSearchResultList;
             }
-
         }
         else {
             logger.debug("params不存在");

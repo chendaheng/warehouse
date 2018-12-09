@@ -499,18 +499,31 @@ INSERT INTO `warehouseStockInPlanDetail` VALUES (3,'plan002','21101',2,100,0,100
 INSERT INTO `warehouseStockInPlanDetail` VALUES (4,'plan002','21102',2,150,0,10000,10500,0,NULL);
 INSERT INTO `warehouseStockInPlanDetail` VALUES (5,'plan003','31101',3,200,0,8000,8200,0,NULL);
 INSERT INTO `warehouseStockInPlanDetail` VALUES (6,'plan003','31102',3,100,0,6000,6150,0,NULL);
-INSERT INTO `warehouseStockInPlanDetail` VALUES (7,'plan004','31101',4,200,0,8100,8500,0,NULL);
-INSERT INTO `warehouseStockInPlanDetail` VALUES (8,'plan004','31102',4,100,0,6100,6400,0,NULL);
-INSERT INTO `warehouseStockInPlanDetail` VALUES (9,'plan005','31102',4,100,0,6100,6400,0,NULL);
+INSERT INTO `warehouseStockInPlanDetail` VALUES (7,'plan004','31101',4,300,0,8000,8200,0,NULL);
+INSERT INTO `warehouseStockInPlanDetail` VALUES (8,'plan004','31102',4,150,0,6000,6150,0,NULL);
+INSERT INTO `warehouseStockInPlanDetail` VALUES (9,'plan005','31102',4,100,0,6000,6150,0,NULL);
+INSERT INTO `warehouseStockInPlanDetail` VALUES (10,'plan006','11101',1,50,0,500000,520000,0,NULL);
 
 
 -- -- ----------------------------
 -- -- Records of warehouseStockInRecord
 -- -- ----------------------------
-INSERT INTO `warehouseStockInRecord` VALUES (1,'entry001',1,'purchase001',1,3331,333111,333001,66601,NULL,1,NULL);
-
+INSERT INTO `warehouseStockInRecord` VALUES (1,'entry001',1,'purchase001',1,3331,333111,333001,66601,'2018-10-02 10:00:00',1,NULL);
+INSERT INTO `warehouseStockInRecord` VALUES (2,'entry002',1,'purchase002',1,3331,333112,333002,66601,'2018-10-03 10:00:00',1,NULL);
+INSERT INTO `warehouseStockInRecord` VALUES (3,'entry003',1,'purchase003',1,3331,333113,333003,66601,'2018-10-04 10:00:00',1,NULL);
+INSERT INTO `warehouseStockInRecord` VALUES (4,'entry004',1,'purchase004',1,3332,333111,333001,66602,'2018-10-05 10:00:00',1,NULL);
+INSERT INTO `warehouseStockInRecord` VALUES (5,'entry005',1,'purchase005',1,3332,333112,333002,66602,'2018-10-06 10:00:00',1,NULL);
+INSERT INTO `warehouseStockInRecord` VALUES (6,'entry006',1,'purchase006',1,3332,333113,333003,66601,'2018-10-07 10:00:00',1,NULL);
 -- -- ----------------------------
 -- -- Records of warehouseStockInRecordDetail
 -- -- ----------------------------
 INSERT INTO `warehouseStockInRecordDetail` VALUES(1,'entry001','11101','2018001',1,20,500000,520000,NULL);
-INSERT INTO `warehouseStockInRecordDetail` VALUES(2,'entry001','11102','2018001',1,30,200000,210000,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(2,'entry001','11102','2018002',1,30,200000,210000,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(3,'entry002','21101','2018003',1,100,10000,10500,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(4,'entry002','21102','2018004',1,150,10000,10500,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(5,'entry003','31101','2017001',1,200,8000,8200,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(6,'entry003','31102','2017002',1,100,6000,6150,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(7,'entry004','31101','2017001',1,300,8000,8200,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(8,'entry004','31102','2017002',1,150,6000,6150,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(9,'entry005','31102','2017002',1,100,6000,6150,NULL);
+INSERT INTO `warehouseStockInRecordDetail` VALUES(10,'entry006','11101','2018001',1,50,500000,520000,NULL);
